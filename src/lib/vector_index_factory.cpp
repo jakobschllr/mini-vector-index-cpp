@@ -1,0 +1,49 @@
+#include "vector_index_factory.h"
+
+
+void create_vector_store(std::string name, uint16_t vec_dim, VectorIndex * index) {
+
+    // create metadata file
+    toml::table metadata =  create_metadata_file(name, vec_dim);
+
+    // create binary files for vectors and graph 
+    bin_resp_t v_data;
+    bin_resp_t g_data;
+    create_bin(&name, VECTOR_FILE, &v_data);
+    create_bin(&name, GRAPH_FILE, &g_data);
+
+    if (!v_data.success || !g_data.success) {
+        return;
+    }
+
+    index->name = name;
+    index->is_empty = true;
+    index->metadata->dim = vec_dim;
+    index->metadata->global_ep_offset = 0;
+    index->metadata->v_map = v_data.mapping;
+    index->metadata->g_map = g_data.mapping;
+};
+
+
+void load_vector_store(std::string name, VectorIndex * index) {
+
+    // load metadata file
+    toml::table metadata =  load_metadata_file(name);
+
+    // load binary data for vectors and graph from file
+    bin_resp_t v_data;
+    bin_resp_t g_data;
+    load_bin(&name, VECTOR_FILE, &v_data);
+    load_bin(&name, GRAPH_FILE, &g_data);
+
+    if (!v_data.success || !g_data.success) {
+        return;
+    }
+
+    index->name = name;
+    index->is_empty = v_data.is_empty;
+    index->metadata->dim = metadata["config"]["dimensions"];
+    index->metadata->global_ep_offset = metadata["config"]["global_ep_offset"];
+    index->metadata->v_map = v_data.mapping;
+    index->metadata->g_map = g_data.mapping;
+};
