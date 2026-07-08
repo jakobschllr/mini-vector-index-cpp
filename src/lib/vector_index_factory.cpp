@@ -42,8 +42,8 @@ void load_vector_store(std::string name, VectorIndex * index) {
 
     index->name = name;
     index->is_empty = v_data.is_empty;
-    index->metadata->dim = metadata["config"]["dimensions"];
-    index->metadata->global_ep_offset = metadata["config"]["global_ep_offset"];
+    index->metadata->dim = metadata["dimensions"].value_or<uint16_t>(0);
+    index->metadata->global_ep_offset = metadata["global_ep_offset"].value_or<uint32_t>(0);
     index->metadata->v_map = v_data.mapping;
     index->metadata->g_map = g_data.mapping;
 };

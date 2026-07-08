@@ -11,5 +11,5 @@ struct index_metadata {
     char * g_map;
 } typedef index_metadata_t;
 
-toml::table create_metadata_file(std::string vector_index_name, uint32_t dim);
+toml::table create_metadata_file(std::string vector_index_name, uint16_t dim);
 toml::table load_metadata_file(std::string vector_index_name);
