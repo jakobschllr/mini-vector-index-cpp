@@ -17,9 +17,11 @@ void create_vector_store(std::string name, uint16_t vec_dim, VectorIndex * index
     }
 
     index->name = name;
-    index->is_empty = true;
-    index->metadata->dim = vec_dim;
-    index->metadata->global_ep_offset = 0;
+    index->metadata->is_empty = metadata["is_empty"].value_or<uint8_t>(1);
+    index->metadata->dim = metadata["dimensions"].value_or<uint16_t>(0);
+    index->metadata->global_ep_offset = metadata["global_ep_offset"].value_or<uint32_t>(0);
+    index->metadata->node_id_counter = metadata["node_id_counter"].value_or<uint32_t>(0);
+    index->metadata->M = metadata["M"].value_or<uint8_t>(DEFAULT_M);
     index->metadata->v_map = v_data.mapping;
     index->metadata->g_map = g_data.mapping;
 };
@@ -41,9 +43,11 @@ void load_vector_store(std::string name, VectorIndex * index) {
     }
 
     index->name = name;
-    index->is_empty = v_data.is_empty;
+    index->metadata->is_empty = index->metadata->is_empty = metadata["is_empty"].value_or<uint8_t>(1);;
     index->metadata->dim = metadata["dimensions"].value_or<uint16_t>(0);
     index->metadata->global_ep_offset = metadata["global_ep_offset"].value_or<uint32_t>(0);
+    index->metadata->node_id_counter = metadata["node_id_counter"].value_or<uint32_t>(0);
+    index->metadata->M = metadata["M"].value_or<uint8_t>(DEFAULT_M);
     index->metadata->v_map = v_data.mapping;
     index->metadata->g_map = g_data.mapping;
 };

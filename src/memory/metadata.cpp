@@ -16,6 +16,9 @@ toml::table create_metadata_file(std::string vector_index_name, uint16_t dim) {
             toml::table config;
             config.insert("dimensions", dim);
             config.insert("global_ep_offset", 0);
+            config.insert("node_id_counter", 0);
+            config.insert("is_empty", 1);
+            config.insert("M", DEFAULT_M);
 
             std::ofstream file(path);
             file << config;

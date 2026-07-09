@@ -7,6 +7,7 @@
 
 #define VECTOR_STORE_PATH "/Users/jakobschiller/.1_bit_mini_vec"
 #define DEFAULT_VEC_STORE_SIZE_BYTES 50 * 1024 * 1024 // 50 MB
+#define DEFAULT_M 20
 
 uint16_t vector_dim = 128;
 
