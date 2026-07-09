@@ -1,6 +1,5 @@
 #include "../hnsw/vector_index.h"
-#include "../memory/metadata.h"
-#include "../memory/bin.h"
+#include "mem_controller.h"
 #include "../main.h"
 
 void create_vector_store(std::string name, uint16_t vec_dim, VectorIndex * index);

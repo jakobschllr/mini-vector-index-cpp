@@ -11,7 +11,7 @@
 class Graph {
 
     private:
-        int highest_layer;
+        uint8_t highest_layer;
         std::unique_ptr<Node> global_ep_node;
         index_metadata_t * metadata;
 

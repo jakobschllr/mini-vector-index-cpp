@@ -3,6 +3,7 @@
 #include "../memory/metadata.h"
 #include <cmath>
 #include <random>
+#include "../lib/mem_controller.h"
 
 class LevelGenerator {
 
@@ -21,7 +22,7 @@ class LevelGenerator {
         dist(std::log(static_cast<double>(M))){} // the parameter k = ln(M) is set, and the argument of the function is rand_num_gen
 
         uint8_t get_level() {
-            return static_cast<int>(std::floor(dist(rand_num_gen)));
+            return static_cast<uint8_t>(std::floor(dist(rand_num_gen)));
         }
 
     private:
@@ -35,6 +36,7 @@ class VectorIndex {
         std::unique_ptr<Graph> graph;
         index_metadata * metadata;
         std::unique_ptr<LevelGenerator> level_generator;
+        std::unique_ptr<MemoryController> mem_controller;
 
         VectorIndex();
         void init();
