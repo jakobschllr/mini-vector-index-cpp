@@ -2,7 +2,6 @@
 #include "../hnsw/node.h"
 #include "../memory/metadata.h"
 #include "../memory/bin.h"
-#include "../hnsw/graph.h"
 
 struct index_metadata {
     uint16_t dim; // vector dimension
@@ -11,8 +10,6 @@ struct index_metadata {
     uint8_t is_empty; // flag
     uint32_t node_id_counter; // counter for node IDs
     uint8_t M; // maximum amount of neighbors per node
-    char * v_map; // mapping of vector.bin
-    char * g_map; // mapping of graph.bin
 } typedef index_metadata_t;
 
 // acts as a translator between Objects (Node, Graph, VectorStore etc.) and (binary) files. 
@@ -23,7 +20,7 @@ class MemoryController {
 
     public:
         MemoryController();
-        void save_global_ep(Node * ep, Graph * g);
         void get_metadata(index_metadata * metadata, bool create_new, std::string * name, uint16_t vec_dim);
         void init_mappings(std::string * name, bool create_new);
+        uint32_t write_vector(const Node& n, uint8_t neighbor_amount);
 };

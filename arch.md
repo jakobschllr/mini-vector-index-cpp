@@ -21,7 +21,6 @@
 
 ### vectors.bin
 - saves the bytes for each node
-- the start-offset of the node is its unique ID
 
 ### graph.bin
 - for each node, saves the neighbor-list for each layer
@@ -29,7 +28,7 @@
 - using a lookahead table, example with 3 layers:
 ```
 
-    | layers_amount=3 | layer-0-neighbors-amount | layer-0-list-start-offset | layer-1-neighbors-amount | layer-1-list-start-offset | layer-0-neighbor-list (n1,n2,n3) | layer-1-neighbor-list (n1,n2,n3) | ...
+    | highest_layer=3 | layer-0-neighbors-amount | layer-0-list-start-offset | layer-1-neighbors-amount | layer-1-list-start-offset | layer-0-neighbor-list (n1,n2,n3) | layer-1-neighbor-list (n1,n2,n3) | ...
 
 offset=0                                               . + 16 Byte                   8 Byte                  8 Byte                       start of list!            
                                                             |                                                                                  /|\

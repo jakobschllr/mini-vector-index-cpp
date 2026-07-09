@@ -1,3 +1,4 @@
+#pragma once
 #include "shared.h"
 #include "graph.h"
 #include "../memory/metadata.h"

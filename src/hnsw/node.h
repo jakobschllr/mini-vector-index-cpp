@@ -1,11 +1,12 @@
+#pragma once
 #include "shared.h"
 
 class Node {
-    private:
-        uint32_t offset;
-        uint8_t highest_layer;
-    
     public: 
-        Node(uint32_t offset, uint8_t highest_layer);
+        uint32_t id;
+        uint8_t highest_layer;
+        std::vector<float> * vector;
+
+        Node(uint32_t id, uint8_t highest_layer, const std::vector<float>& vector);
         void get_neighbors();
 };

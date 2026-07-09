@@ -1,9 +1,22 @@
 #include "mem_controller.h"
 
 
+// - writes node (vector) to vector.bin file
+// - calculates the offset based on the Node-ID multiplied with the size of the node-data in bytes
+uint32_t MemoryController::write_vector(const Node& n, uint8_t neighbor_amount) {
 
-void MemoryController::save_global_ep(Node * ep, Graph * g) {
-
+                         // highest_layer   
+    uint32_t graph_start_offset = 1     +  n.highest_layer*     +   (n.highest_layer * neighbor_amount * 4) + 
+    
+    struct {
+        std::vector<float> vector;
+        uint32_t graph_offset; // reference to neighbor list in graph.bin
+    } node_bin_data = {
+        .vector = *n.vector,
+        .graph_offset = graph_start_offset
+    };
+    
+    uint32_t insert_at_offset = n.id * (n.vector->size() + 4); // + 4 bytes for graph_offset
 }
 
 void MemoryController::init_mappings(std::string * name, bool create_new) {

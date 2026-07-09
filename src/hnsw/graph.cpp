@@ -1,12 +1,8 @@
 #include "graph.h"
 
-Graph::Graph(index_metadata_t * metadata) {
-    // init graph based on metadata
-    this->metadata = metadata;
+Graph::Graph() {
 };
 
-// Sets the global entry point node for the graph object (no memory operation only node-initialization for global ep)
-void Graph::set_global_ep(uint32_t offset, uint8_t highest_layer) {
-    this->global_ep_node = std::make_unique<Node>(offset, highest_layer);
-    this->highest_layer = highest_layer;
-};
+void Graph::update_global_ep(uint32_t id, uint8_t layer, const std::vector<float>& vec) {
+    this->global_ep_node = std::make_unique<Node>(id, layer, vec);
+}

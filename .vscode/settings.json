@@ -42,6 +42,10 @@
         "cinttypes": "cpp",
         "chrono": "cpp",
         "text_encoding": "cpp",
-        "filesystem": "cpp"
+        "filesystem": "cpp",
+        "numeric": "cpp",
+        "unordered_map": "cpp",
+        "fstream": "cpp",
+        "optional": "cpp"
     }
 }

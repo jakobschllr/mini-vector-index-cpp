@@ -18,6 +18,16 @@ int VectorIndex::save_embedding(const std::vector<float>& vec, const std::string
     // if index is empty save the first embedding
     if (this->metadata->is_empty) {
         
+        this->graph->update_global_ep(this->metadata->node_id_counter, l, vec);
+        uint32_t globale_ep_offset = this->mem_controller->write_vector(*this->graph->global_ep_node, this->metadata->M);
+
+        // update metadata
+        this->metadata->node_id_counter++;
+        this->metadata->global_ep_offset = globale_ep_offset;
+        this->metadata->highest_layer = l;
+        this->metadata->is_empty = 0;
+
+        // write back metadata using memory controller
 
     }
 
