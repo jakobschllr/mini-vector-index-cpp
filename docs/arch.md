@@ -1,5 +1,10 @@
 # Architecture
 
+## General:
+- use namespaces for different files
+- class for managing the visited nodes (make it thread-safe using mutexes)
+- use `#include <deque>` for visited list queue
+
 ## Classes
 
 ### class HNSWIndex
