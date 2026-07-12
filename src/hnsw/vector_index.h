@@ -19,15 +19,15 @@ class LevelGenerator {
     public:
         explicit LevelGenerator(uint8_t M)
         :
-        rand_num_gen(std::random_device{}()), // with each call, creates a raw random integer between 0 and 2^64 -1
+        randNumGen(std::random_device{}()), // with each call, creates a raw random integer between 0 and 2^64 -1
         dist(std::log(static_cast<double>(M))){} // the parameter k = ln(M) is set, and the argument of the function is rand_num_gen
 
-        uint8_t get_level() {
-            return static_cast<uint8_t>(std::floor(dist(rand_num_gen)));
+        uint8_t getLevel() {
+            return static_cast<uint8_t>(std::floor(dist(randNumGen)));
         }
 
     private:
-        std::mt19937_64 rand_num_gen;
+        std::mt19937_64 randNumGen;
         std::exponential_distribution<double> dist;
 };
 
@@ -41,7 +41,7 @@ class VectorIndex {
 
         VectorIndex();
         void init();
-        int save_embedding(const std::vector<float>& vec, const std::string& chunk);
+        int saveEmbedding(const std::vector<float>& vec, const std::string& chunk);
 
     private:
 

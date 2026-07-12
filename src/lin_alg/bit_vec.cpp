@@ -6,7 +6,7 @@ Receives a float32 vector `origin` with dimension VEC_DIM and returns pointer to
 bit-vector with equal dimension.
 */
 
-bit_vector_t * transform_to_bit_vector(float * origin) {
+bit_vector_t * transformToBitVector(float * origin) {
     
     bit_vector * vec = (bit_vector *) malloc(VEC_DIM);
     uint8_t bit_idx = 0;

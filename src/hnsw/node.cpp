@@ -6,6 +6,6 @@ Node::Node(uint32_t id, uint8_t highest_layer, const std::vector<float>& vector)
     *this->vector = vector;
 };
 
-void Node::get_neighbors() {
+void Node::getNeighbors() {
     
 }

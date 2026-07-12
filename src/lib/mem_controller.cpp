@@ -3,7 +3,7 @@
 
 // - writes node (vector) to vector.bin file
 // - calculates the offset based on the Node-ID multiplied with the size of the node-data in bytes
-uint32_t MemoryController::write_vector(const Node& n, uint8_t neighbor_amount) {
+uint32_t MemoryController::writeVector(const Node& n, uint8_t neighbor_amount) {
 
                          // highest_layer   
     uint32_t graph_start_offset = 1     +  n.highest_layer*     +   (n.highest_layer * neighbor_amount * 4) + 
@@ -19,19 +19,19 @@ uint32_t MemoryController::write_vector(const Node& n, uint8_t neighbor_amount) 
     uint32_t insert_at_offset = n.id * (n.vector->size() + 4); // + 4 bytes for graph_offset
 }
 
-void MemoryController::init_mappings(std::string * name, bool create_new) {
+void MemoryController::initMappings(std::string * name, bool create_new) {
 
     // create binary files for vectors and graph 
     bin_resp_t v_data;
     bin_resp_t g_data;
     
     if (create_new) {
-        create_bin(name, VECTOR_FILE, &v_data);
-        create_bin(name, GRAPH_FILE, &g_data);
+        createBin(name, VECTOR_FILE, &v_data);
+        createBin(name, GRAPH_FILE, &g_data);
     }
     else {
-        load_bin(name, VECTOR_FILE, &v_data);
-        load_bin(name, GRAPH_FILE, &g_data);
+        loadBin(name, VECTOR_FILE, &v_data);
+        loadBin(name, GRAPH_FILE, &g_data);
     }
 
     if (!v_data.success || !g_data.success) {
@@ -44,16 +44,16 @@ void MemoryController::init_mappings(std::string * name, bool create_new) {
 }
 
 
-void MemoryController::get_metadata(index_metadata * metadata, bool create_new, std::string * name, uint16_t vec_dim) {
+void MemoryController::getMetadata(index_metadata * metadata, bool create_new, std::string * name, uint16_t vec_dim) {
 
     if (create_new) {
         // create metadata file on disk
-        toml::table metadata_toml =  create_metadata_file(*name, vec_dim);
+        toml::table metadata_toml =  createMetadataFile(*name, vec_dim);
     }
 
     else {
         // load metadata file from dist
-        toml::table metadata_toml =  load_metadata_file(*name);
+        toml::table metadata_toml =  loadMetadataFile(*name);
     }
 
     

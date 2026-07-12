@@ -12,4 +12,4 @@ struct bit_vector {
 } typedef bit_vector_t;
 
 
-bit_vector_t * transform_to_bit_vector(float * origin);
+bit_vector_t * transformToBitVector(float * origin);

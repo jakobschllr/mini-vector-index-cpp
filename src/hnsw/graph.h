@@ -16,5 +16,13 @@ class Graph {
         Graph();
         uint8_t highest_layer;
         std::unique_ptr<Node> global_ep_node;
-        void update_global_ep(uint32_t id, uint8_t layer, const std::vector<float>& vec);
+        void updateGlobalEp(uint32_t id, uint8_t layer, const std::vector<float>& vec);
 };
+
+
+Graph::Graph() {
+};
+
+void Graph::updateGlobalEp(uint32_t id, uint8_t layer, const std::vector<float>& vec) {
+    this->global_ep_node = std::make_unique<Node>(id, layer, vec);
+}

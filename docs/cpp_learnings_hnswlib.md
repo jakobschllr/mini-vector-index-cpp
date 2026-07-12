@@ -1,4 +1,4 @@
-# CPP learnings (from hnswlib)
+# CPP Learnings from hnswlib
 
 ## Smart Pointer
 - `std::unique_ptr<VisitedListPool> visited_list_pool_;`
@@ -86,3 +86,21 @@ In C one must give a pointer to a function to change an outside-variable. A refe
 - syntax: ~ClassName()
 - a constructor for a class is needed if the class uses resources that aren't automatically deallocated by the OS. For exapmle if `malloc` or `new` is used, files are opened or also when using `mmap`. 
 - `mmap`: when using `mmap` in a class, in the destructor the mapping must be cleaned up using `munmap`
+
+## CPP-Templates
+- write `template <typename T>` before a class or a function
+- `T` is a generic type, which is inserted later by the compiler
+- when using a template, a concrete type must by passed, thereby the compiler knows which type to insert
+- the declaration and implementation of templates both must be in the same header file. Reason for that is, that the compiler can't compile a generic class / function implementation without seeing how the template is instanciated. Therefore the compiler must include both the header-declaration of the template and the implementation into the file, where the template is intanciated.
+
+## OOP
+Example:
+`class Dog: public Tier {
+...};`
+
+
+**virtual-keyword**:
+- when overriding a function from from the parent class and calling it on an instance of the child class, CPP uses pointers to the
+  parent class, thereby the original function from the parent class is used, this is called static bindings
+- using the `virtual void function_name() {...};` keyword before a function (in the parent class) tells the compiler to look up the actual object-type at runtime and call the overridden function of the child class
+- overridden functions can also be marked as with `override` e.g. `void func() override {...};`

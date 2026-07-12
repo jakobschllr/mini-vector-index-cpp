@@ -8,5 +8,5 @@ class Node {
         std::vector<float> * vector;
 
         Node(uint32_t id, uint8_t highest_layer, const std::vector<float>& vector);
-        void get_neighbors();
+        void getNeighbors();
 };

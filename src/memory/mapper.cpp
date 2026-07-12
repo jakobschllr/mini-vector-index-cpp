@@ -2,7 +2,7 @@
 
 // - maps file into page cache using mmap
 // - uses default page size (DEFAULT_VEC_STORE_SIZE_BYTES) if no file size ist passed (int file_size)
-char * get_mapping(int fd, int file_size) {
+char * getMapping(int fd, int file_size) {
     // use mmap to map file into virtual memory of process (user space)
     char * map = (char *) mmap(
         NULL, // OS should choose memory adress in user space itself
@@ -19,6 +19,6 @@ char * get_mapping(int fd, int file_size) {
 }
 
 // unmap
-void clear_map(char ** map) {
+void clearMap(char ** map) {
     munmap(&map, DEFAULT_VEC_STORE_SIZE_BYTES);
 }

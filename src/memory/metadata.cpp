@@ -1,18 +1,18 @@
 #include "metadata.h"
 
-bool file_exists(const std::string& path) {
+bool fileExists(const std::string& path) {
     struct stat buffer;
     return (stat(path.c_str(), &buffer) == 0);
 }
 
-toml::table create_metadata_file(std::string vector_index_name, uint16_t dim) {
+toml::table createMetadataFile(std::string vector_index_name, uint16_t dim) {
 
     try {
         // create path
         std::string path;
         build_path(&path, METADATA_FILE, &vector_index_name);
 
-        if (!file_exists(path)) {
+        if (!fileExists(path)) {
             toml::table config;
             config.insert("dimensions", dim);
             config.insert("global_ep_offset", 0);
@@ -44,14 +44,14 @@ toml::table create_metadata_file(std::string vector_index_name, uint16_t dim) {
 }
 
 
-toml::table load_metadata_file(std::string vector_index_name) {
+toml::table loadMetadataFile(std::string vector_index_name) {
 
     try {
         // create path
         std::string path;
-        build_path(&path, METADATA_FILE, &vector_index_name);
+        buildPath(&path, METADATA_FILE, &vector_index_name);
 
-        if (file_exists(path)) {
+        if (fileExists(path)) {
             return toml::parse_file(path);
         }
         else {

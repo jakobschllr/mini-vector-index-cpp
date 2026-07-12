@@ -7,18 +7,18 @@ void VectorIndex::init() {
     this->level_generator = std::make_unique<LevelGenerator>(this->metadata->M);
 }
 
-int VectorIndex::save_embedding(const std::vector<float>& vec, const std::string& chunk) {
+int VectorIndex::saveEmbedding(const std::vector<float>& vec, const std::string& chunk) {
 
     // TODO: save the chunk in the data-file using the node-id and key-value-loopup index
 
 
     // Calculate highest layer for new node
-    uint16_t l = this->level_generator->get_level();
+    uint16_t l = this->level_generator->getLevel();
     
     // if index is empty save the first embedding
     if (this->metadata->is_empty) {
         
-        this->graph->update_global_ep(this->metadata->node_id_counter, l, vec);
+        this->graph->updateGlobalEp(this->metadata->node_id_counter, l, vec);
         uint32_t globale_ep_offset = this->mem_controller->write_vector(*this->graph->global_ep_node, this->metadata->M);
 
         // update metadata

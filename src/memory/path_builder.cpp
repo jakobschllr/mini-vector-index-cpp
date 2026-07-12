@@ -4,7 +4,7 @@
 
 
 // build path to vector store files (vector.bin and graph.bin)
-void build_path (std::string * path, file_type_e ft, std::string * name) {
+void buildPath (std::string * path, file_type_e ft, std::string * name) {
     *path += VECTOR_STORE_PATH;
     *path += "/";
     *path += *name;

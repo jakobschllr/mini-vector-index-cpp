@@ -4,7 +4,7 @@
 
 
 // loads existing vector-store-file; maps it into page cache and returns pointer to map
-void load_bin(std::string * name, file_type_e ft, bin_resp_t * bin_data) {
+void loadBin(std::string * name, file_type_e ft, bin_resp_t * bin_data) {
 
     // create path
     std::string path;
@@ -37,7 +37,7 @@ void load_bin(std::string * name, file_type_e ft, bin_resp_t * bin_data) {
 }
 
 // creates new empty vector-store-file; maps it into page cache and returns pointer to map
-void create_bin(std::string * name, file_type_e ft, bin_resp_t * bin_data) {
+void createBin(std::string * name, file_type_e ft, bin_resp_t * bin_data) {
     
     // create path
     std::string path;

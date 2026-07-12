@@ -112,3 +112,9 @@ Here no candidate pool is really build, really only the best node is always used
 - 4: From the result list W choose the K nearest neighbors to q (with K <= ef_search), this is the result
 
 
+## ef and ef_construction
+- ef: size of candidate list during search with query vector
+    - the higher the value the better the k result vectors, on the downside more calcucations and longer runtime
+    - can be changed for each search, depending on whether time or accuray is more important
+- ef_construction: size of candidate list during insertion of a new vector
+    - the higher the value, the more accurate the position of the vector in the vector space; the neighbors are better. On the downside the insertion takes more time

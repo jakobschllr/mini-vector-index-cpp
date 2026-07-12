@@ -20,7 +20,7 @@ class MemoryController {
 
     public:
         MemoryController();
-        void get_metadata(index_metadata * metadata, bool create_new, std::string * name, uint16_t vec_dim);
-        void init_mappings(std::string * name, bool create_new);
-        uint32_t write_vector(const Node& n, uint8_t neighbor_amount);
+        void getMetadata(index_metadata * metadata, bool create_new, std::string * name, uint16_t vec_dim);
+        void initMappings(std::string * name, bool create_new);
+        uint32_t writeVector(const Node& n, uint8_t neighbor_amount);
 };
