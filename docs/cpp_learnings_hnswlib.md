@@ -10,7 +10,7 @@
 - allocated memory doesn't need to be deallocated later 
 - at any time in the program only one unique_ptr can point to the reserved memory space; this variable is the owner of this memory space
   and is responsible for deallocating after leaving the scope of the variable
-
+- the destructor of std::unique_ptr is automaticall called if the scope of the variable ends. Within the destructor the occupied memory is deallocated
 
 ## Value-Initialization (braced-init-list)
 - example: `size_t ef{0}` // value is initialized with 0
@@ -58,7 +58,7 @@ catch (const std::invalid_argument& e) {
 - `#include <stdexcept>`contains the standard exceptions
 - when an exception is thrown, CPP uses stack unwinding to destroy all objects on the stack that were created to this point
 
-# Namespaces
+## Namespaces
 - in C all global variables and functions are in one `space``
 - using namespaces global variables and functions can be stored in a namespace (like a folder)
 - the variables and functions can be accessed by using the scope-operator (`::`)
@@ -66,7 +66,7 @@ catch (const std::invalid_argument& e) {
 - namespaces have no influence at linking / locating time
 - after compilation the namespaces are completely removed, the compiler uses them internally to rename symbol-names
 
-# References
+## References
 - alias for an already existing variable
 Example: 
 ```
@@ -81,3 +81,8 @@ In C one must give a pointer to a function to change an outside-variable. A refe
   safer than pointers
 - direct initialization: a reference must be bound to a variable instantly at creation
 - once bound, a reference can't be changed to reference another variable
+
+## Destructors
+- syntax: ~ClassName()
+- a constructor for a class is needed if the class uses resources that aren't automatically deallocated by the OS. For exapmle if `malloc` or `new` is used, files are opened or also when using `mmap`. 
+- `mmap`: when using `mmap` in a class, in the destructor the mapping must be cleaned up using `munmap`
