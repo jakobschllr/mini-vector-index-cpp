@@ -19,7 +19,7 @@ int VectorIndex::saveEmbedding(const std::vector<float>& vec, const std::string&
     if (this->metadata->is_empty) {
         
         this->graph->updateGlobalEp(this->metadata->node_id_counter, l, vec);
-        uint32_t globale_ep_offset = this->mem_controller->write_vector(*this->graph->global_ep_node, this->metadata->M);
+        uint32_t globale_ep_offset = this->mem_controller->writeVector(*this->graph->global_ep_node, this->metadata->M);
 
         // update metadata
         this->metadata->node_id_counter++;

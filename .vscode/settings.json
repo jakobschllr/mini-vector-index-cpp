@@ -46,6 +46,14 @@
         "numeric": "cpp",
         "unordered_map": "cpp",
         "fstream": "cpp",
-        "optional": "cpp"
+        "optional": "cpp",
+        "__locale": "cpp",
+        "bitset": "cpp",
+        "cstdio": "cpp",
+        "ctime": "cpp",
+        "cwchar": "cpp",
+        "mutex": "cpp",
+        "streambuf": "cpp",
+        "queue": "cpp"
     }
 }
