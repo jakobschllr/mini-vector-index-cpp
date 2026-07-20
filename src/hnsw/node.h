@@ -12,13 +12,13 @@ struct DistanceComparator {
 };
 
 class Node {
-    public: 
+    public:
         uint32_t id;
         uint8_t highest_layer;
         std::vector<float> * vector;
+        std::vector<NeighborQueue> neighborQueues; // array of neighbor queues, one for each layer
 
         Node(uint32_t id, uint8_t highest_layer, const std::vector<float>& vector);
-        NeighborQueue neighborQueue;
 
-        void getNeighborOffsets(std::vector<uint32_t>& neighbor_offsets, uint8_t M);
+        void getNeighborOffsets(std::vector<std::vector<uint32_t>>& neighbor_offsets, uint8_t M);
 };

@@ -14,39 +14,34 @@ int VectorIndex::saveEmbedding(const std::vector<float>& vec, const std::string&
 
     // Calculate highest layer for new node
     uint16_t l = this->level_generator->getLevel();
-    
+
     // if index is empty save the first embedding
     if (this->metadata->is_empty) {
-        
+
         this->graph->updateGlobalEp(this->metadata->node_id_counter, l, vec);
-        uint32_t globale_ep_offset = this->mem_controller->writeVector(*this->graph->global_ep_node, this->metadata->M);
+
+        // write vector and graph data
+        this->mem_controller->writeVector(*this->graph->global_ep_node, this->metadata->M);
 
         // update metadata
         this->metadata->node_id_counter++;
-        this->metadata->global_ep_offset = globale_ep_offset;
+        this->metadata->global_ep_offset = 0;
         this->metadata->highest_layer = l;
         this->metadata->is_empty = 0;
 
-        // write back metadata using memory controller
+        // write back metadata
+        this->mem_controller->writeMetadata(this->metadata, this->name);
 
     }
 
     // index isn't empty, add node
     else {
 
-        // create global entrypoint
-        
+        this->graph->descentGraphForInsert(l, this->metadata->highest_layer, vec);
 
-        // if node-layer is the highest, update highest-layer in metadata and update global entry point
+        this->metadata->node_id_counter++;
 
     }
-
-
-    // Increment Node-ID
-
-
-    // Write back metadata to memory
-
 
     return 0;
 }

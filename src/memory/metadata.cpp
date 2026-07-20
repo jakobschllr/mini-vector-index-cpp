@@ -10,7 +10,7 @@ toml::table createMetadataFile(std::string vector_index_name, uint16_t dim) {
     try {
         // create path
         std::string path;
-        build_path(&path, METADATA_FILE, &vector_index_name);
+        buildPath(&path, METADATA_FILE, &vector_index_name);
 
         if (!fileExists(path)) {
             toml::table config;
@@ -38,11 +38,38 @@ toml::table createMetadataFile(std::string vector_index_name, uint16_t dim) {
                 err.source().begin.column);
         exit(1);
     }
-
-    
-    
 }
 
+void updateMetadataFile(std::string& vector_index_name, index_metadata_t& metadata) {
+    try {
+        // create path
+        std::string path;
+        buildPath(&path, METADATA_FILE, &vector_index_name);
+
+        if (fileExists(path)) {
+            toml::table config;
+            config.insert("global_ep_offset", metadata.global_ep_offset);
+            config.insert("node_id_counter", metadata.node_id_counter);
+            config.insert("is_empty", metadata.is_empty);
+
+            std::ofstream file(path);
+            file << config;
+        }
+        else {
+            fprintf(stderr, "Critical: Metadata file does not exists, aborting.");
+            exit(1);
+        }
+    }
+
+    catch (const toml::parse_error& err) {
+        fprintf(stderr, "Failed to parse %s: %s (line %u, col %u)\n",
+                vector_index_name.c_str(),
+                std::string(err.description()).c_str(),
+                err.source().begin.line,
+                err.source().begin.column);
+        exit(1);
+    }
+}
 
 toml::table loadMetadataFile(std::string vector_index_name) {
 

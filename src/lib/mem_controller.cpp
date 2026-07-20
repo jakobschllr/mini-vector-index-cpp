@@ -8,38 +8,44 @@ uint32_t getNodeInsertionOffset (const Node& n) {
 }
 
 uint32_t getNeighborListInsertionOffset (const Node& n, uint8_t& M) {
-                                        // highest_layer        // 1 Byte neighbor amount and                    // per Layer: neighbor-list consisting of 4-Byte-Adresses; 
+                                        // highest_layer        // 1 Byte neighbor amount and                    // per Layer: neighbor-list consisting of 4-Byte-Adresses;
                                                                 // 1 Byte relative startoffset for each layer    // reserving space for M * 4 Bytes, so for maximum amount of neighbors
-    
+
     uint16_t graph_entry_size  =        1                       + 2 * n.highest_layer +                         + n.highest_layer * M * 4;
     return graph_entry_size * n.id;
 }
 
 
 // - writes node (vector) to vector.bin file
-// - calculates the offset based on the Node-ID multiplied with the size of the node-data in bytes
-// - updates the neighbor list
-uint32_t MemoryController::writeVector(Node& n, uint8_t M) { // M is maximum neighbor amount
+// - writes neighbors into graph.bin
+void MemoryController::writeVector(Node& n, uint8_t M) { // M is maximum neighbor amount
 
     uint32_t node_offset = getNodeInsertionOffset(n);
     uint32_t neighbor_list_offset = getNeighborListInsertionOffset(n, M);
 
-    // TODO: this must work for all layers, the write-flow for writing to graph.bin isn't correct yet
-
-    memcpy(this->vector_file_mapping + node_offset, n.vector->data(), n.vector->size() * sizeof(float)); // write vector data 
+    // write vector data
+    memcpy(this->vector_file_mapping + node_offset, n.vector->data(), n.vector->size() * sizeof(float)); // write vector data
     memcpy(this->vector_file_mapping + n.vector->size() * sizeof(float), &neighbor_list_offset, 4); // write offset of neighbor-data
-    std::vector<uint32_t> neighbor_offsets;
-    neighbor_offsets.reserve(M); // reserve M bytes for vector
+
+    // write neighbor data
+    std::vector<std::vector<uint32_t>> neighbor_offsets;
+
+    // for each layer reserve M bytes (+ 1*M for layer 0)
+    neighbor_offsets.reserve(M * n.highest_layer + M);
     n.getNeighborOffsets(neighbor_offsets, M); // get list of offsets for neighbor nodes
-    memcpy(this->graph_file_mapping + neighbor_list_offset, &neighbor_offsets, M);
+
+    // iterate over layers starting at 0 and copy neighbor offsets into mapping
+    for (uint16_t layer; layer <= n.highest_layer; layer++) {
+        memcpy(this->graph_file_mapping + neighbor_list_offset + layer * M, &neighbor_offsets[layer], M);
+    }
 }
 
 void MemoryController::initMappings(std::string * name, bool create_new) {
 
-    // create binary files for vectors and graph 
+    // create binary files for vectors and graph
     bin_resp_t v_data;
     bin_resp_t g_data;
-    
+
     if (create_new) {
         createBin(name, VECTOR_FILE, &v_data);
         createBin(name, GRAPH_FILE, &g_data);
@@ -58,7 +64,6 @@ void MemoryController::initMappings(std::string * name, bool create_new) {
     this->graph_file_mapping = g_data.mapping;
 }
 
-
 void MemoryController::getMetadata(index_metadata * metadata, bool create_new, std::string * name, uint16_t vec_dim) {
 
     if (create_new) {
@@ -71,10 +76,14 @@ void MemoryController::getMetadata(index_metadata * metadata, bool create_new, s
         toml::table metadata_toml =  loadMetadataFile(*name);
     }
 
-    
+
     metadata->is_empty = metadata_toml["is_empty"].value_or<uint8_t>(1);
     metadata->dim = metadata_toml["dimensions"].value_or<uint16_t>(0);
     metadata->global_ep_offset = metadata_toml["global_ep_offset"].value_or<uint32_t>(0);
     metadata->node_id_counter = metadata_toml["node_id_counter"].value_or<uint32_t>(0);
     metadata->M = metadata_toml["M"].value_or<uint8_t>(DEFAULT_M);
+}
+
+void writeMetadata(index_metadata_t& metadata, std::string& index_name) {
+    updateMetadataFile(metadata, index_name);
 }
