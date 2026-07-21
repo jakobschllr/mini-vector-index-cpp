@@ -7,9 +7,29 @@
 #include <memory>
 #include "shared.h"
 
-/*
-- mutable graph
-*/
+struct CosineSimilarity {
+    static float calc(const std::vector<float>& a, const std::vector<float>& b) {
+
+
+        return 0.0f;
+    }
+};
+
+struct L2_Distance {
+    static float calc(const std::vector<float>& a, const std::vector<float>& b) {
+
+        return 0.0f;
+    }
+};
+
+struct HammingDistance {
+    static uint32_t calc(const std::vector<float>& a, const std::vector<float>& b) {
+
+        return 0;
+    }
+};
+
+template<typename dist_metric>
 class Graph {
     public:
         // Constructor

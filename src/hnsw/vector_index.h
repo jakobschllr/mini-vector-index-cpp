@@ -6,6 +6,9 @@
 #include <random>
 #include "../lib/mem_controller.h"
 
+enum dist_metric {COSINE, L2, HAMMING} typedef dist_metric_e;
+using VarDistGraph = std::variant<std::unique_ptr<Graph<L2_Distance>>, std::unique_ptr<Graph<CosineSimilarity>>, std::unique_ptr<Graph<HammingDistance>>>;
+
 class LevelGenerator {
 
     /*
@@ -34,13 +37,13 @@ class LevelGenerator {
 class VectorIndex {
     public:
         std::string name;
-        std::unique_ptr<Graph> graph;
+        VarDistGraph graph;
         index_metadata metadata;
         std::unique_ptr<LevelGenerator> level_generator;
         std::unique_ptr<MemoryController> mem_controller;
 
         VectorIndex();
-        void init();
+        void init(dist_metric_e dist);
         int saveEmbedding(const std::vector<float>& vec, const std::string& chunk);
 
     private:

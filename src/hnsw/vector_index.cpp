@@ -1,9 +1,22 @@
 #include "vector_index.h"
+#include "graph.h"
 
 
-void VectorIndex::init() {
-    // initialize graph based on this->metadata
-    this->graph  = std::make_unique<Graph>();
+void VectorIndex::init(dist_metric_e dist) {
+
+    switch(dist) {
+        case L2: {
+            this->graph  = std::make_unique<Graph<L2_Distance>>();
+            break;
+        }
+        case HAMMING: {
+            this->graph  = std::make_unique<Graph<HammingDistance>>();
+            break;
+        }
+        case COSINE: {
+            this->graph  = std::make_unique<Graph<CosineSimilarity>>();
+        }
+    }
     this->level_generator = std::make_unique<LevelGenerator>(this->metadata.M);
 }
 
