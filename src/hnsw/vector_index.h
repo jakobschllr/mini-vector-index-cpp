@@ -35,7 +35,7 @@ class VectorIndex {
     public:
         std::string name;
         std::unique_ptr<Graph> graph;
-        index_metadata * metadata;
+        index_metadata metadata;
         std::unique_ptr<LevelGenerator> level_generator;
         std::unique_ptr<MemoryController> mem_controller;
 

@@ -104,3 +104,9 @@ Example:
   parent class, thereby the original function from the parent class is used, this is called static bindings
 - using the `virtual void function_name() {...};` keyword before a function (in the parent class) tells the compiler to look up the actual object-type at runtime and call the overridden function of the child class
 - overridden functions can also be marked as with `override` e.g. `void func() override {...};`
+
+## Values vs. Pointers vs. References vs. unique_ptr
+- use values if the attribute exists as long as the object (object is logical owner)
+- use Pointers for pointing to something that already exists elsewhere (not ownership)
+- references are similar to pointers, but offer more safety (see above)
+- a unique_ptr can have exactly one owner (only one variable can point to this memory area)

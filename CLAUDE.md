@@ -1,5 +1,15 @@
 # CLAUDE.md
 
+## Über mich (den Nutzer)
+
+- Ich komme aus **C** — Pointer, manuelle Speicherverwaltung, Structs, Header/
+  Translation-Units sind mir vertraut. C++-Spezifika (Klassen, RAII, Ownership,
+  Smart Pointer, Templates, STL, Move-Semantik) lerne ich noch.
+- Ich kenne mich auch etwas mit **Python** und **Webentwicklung** aus.
+- Konsequenz fürs Erklären: Bau Brücken von C aus ("in C würdest du X machen,
+  in C++ ist das Idiom Y, weil ..."). Nimm C-Grundlagen (Pointer, Speicher,
+  Compile/Link) als bekannt an und fokussiere auf das, was C++ anders/mehr macht.
+
 ## Arbeitsweise in diesem Projekt
 
 Das hier ist ein **Lernprojekt**. Ziel ist, dass *ich* (der Nutzer) dabei etwas

@@ -1,6 +1,6 @@
+#pragma once
 #include "../main.h"
 #include "../hnsw/node.h"
-#include "../memory/metadata.h"
 #include "../memory/bin.h"
 
 struct index_metadata {

@@ -1,8 +1,8 @@
 #pragma once
 #include "shared.h"
 
-using NeighborWithDistance = std::pair<Node, Distance>;
-using NeighborQueue = std::priority_queue<NeighborWithDistance, std::vector<NeighborWithDistance>, DistanceComparator>;
+
+using NeighborWithDistance = std::pair<uint32_t, Distance>; // pair of node-offset and distance to owning node
 
 // functor, a struct wrapping a function, since std::priority_queue expects a type
 struct DistanceComparator {
@@ -11,11 +11,13 @@ struct DistanceComparator {
     }
 };
 
+using NeighborQueue = std::priority_queue<NeighborWithDistance, std::vector<NeighborWithDistance>, DistanceComparator>;
+
 class Node {
     public:
         uint32_t id;
         uint8_t highest_layer;
-        std::vector<float> * vector;
+        std::vector<float> vector;
         std::vector<NeighborQueue> neighborQueues; // array of neighbor queues, one for each layer
 
         Node(uint32_t id, uint8_t highest_layer, const std::vector<float>& vector);

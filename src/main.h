@@ -4,12 +4,13 @@
 #include <stdio.h>
 #include <string>
 #include "./external/toml.hpp"
+#include <utility>
+#include <queue>
+#include <vector>
 
 #define VECTOR_STORE_PATH "/Users/jakobschiller/.1_bit_mini_vec"
 #define DEFAULT_VEC_STORE_SIZE_BYTES 50 * 1024 * 1024 // 50 MB
 #define DEFAULT_M 20
-
-uint16_t vector_dim = 128;
 
 #ifndef VEC_DIM
 #define VEC_DIM 1024

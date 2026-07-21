@@ -1,5 +1,5 @@
 #include "mem_controller.h"
-
+#include "../memory/metadata.h"
 
 // returns byte offset for node-data (vector and reference to neighbor list) is written to in vector.bin
 uint32_t getNodeInsertionOffset (const Node& n) {
@@ -65,7 +65,7 @@ void MemoryController::initMappings(std::string * name, bool create_new) {
 }
 
 void MemoryController::getMetadata(index_metadata * metadata, bool create_new, std::string * name, uint16_t vec_dim) {
-
+    toml::table metadata_toml;
     if (create_new) {
         // create metadata file on disk
         toml::table metadata_toml =  createMetadataFile(*name, vec_dim);
@@ -84,6 +84,6 @@ void MemoryController::getMetadata(index_metadata * metadata, bool create_new, s
     metadata->M = metadata_toml["M"].value_or<uint8_t>(DEFAULT_M);
 }
 
-void writeMetadata(index_metadata_t& metadata, std::string& index_name) {
-    updateMetadataFile(metadata, index_name);
+void MemoryController::writeMetadata(index_metadata_t& metadata, std::string& index_name) {
+    updateMetadataFile(index_name, metadata);
 }
